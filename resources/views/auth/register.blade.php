@@ -39,6 +39,16 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
+        <!-- User Type (TOURIST or propriétaire) -->
+        <div class="mt-4">
+            <x-input-label for="user_type" :value="__('User Type')" />
+            <select id="user_type" class="block mt-1 w-full" name="user_type" required>
+                <option value="tourist" {{ old('user_type') == 'tourist' ? 'selected' : '' }}>TOURIST</option>
+                <option value="propriétaire" {{ old('user_type') == 'propriétaire' ? 'selected' : '' }}>propriétaire</option>
+            </select>
+            <x-input-error :messages="$errors->get('user_type')" class="mt-2" />
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
