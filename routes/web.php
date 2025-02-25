@@ -19,8 +19,8 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/home', function() {
-    return view('home');
+Route::get('/touris', function() {
+    return view('touris');
 });
 
 Route::get('/dashboard', function () {
