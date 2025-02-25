@@ -33,6 +33,8 @@ class AuthenticatedSessionController extends Controller
 
             return redirect('admin/dashbord');
 
+        }elseif($request->user()->usertype ==='touris'){
+            return redirect('touris');
         }
 
         return redirect()->intended(RouteServiceProvider::HOME);
