@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PropertyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,5 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('admin/dashbord', [HomeController::class,'index']);
+Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
+Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');

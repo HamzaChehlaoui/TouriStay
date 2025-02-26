@@ -113,13 +113,14 @@
 
                     <div class="border-t border-gray-100 my-1"></div>
 
-                    <form method="POST" action="/logout" class="block w-full">
+                    <form method="POST" action="{{ route('logout') }}" class="block w-full">
+                        @csrf
                         <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                 </svg>
-                                Log Out
+                                {{ __('Log Out') }}
                             </div>
                         </button>
                     </form>
@@ -156,6 +157,7 @@
 
             <!-- Stats Cards -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
                 <div class="bg-white p-6 rounded-xl shadow-md">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-medium text-gray-800">Active Listings</h3>
@@ -224,6 +226,7 @@
                         Based on 92 reviews
                     </p>
                 </div>
+
             </div>
         </section>
 
@@ -236,6 +239,7 @@
 
             <!-- Properties Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                @foreach($properties  as $propertie)
                 <!-- Property 1 - Active -->
                 <div class="bg-white rounded-xl shadow-md overflow-hidden property-card">
                     <div class="relative">
@@ -250,7 +254,7 @@
                         </div>
                     </div>
                     <div class="p-5">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Luxury Beach Villa</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">{{$propertie->name}}</h3>
                         <div class="flex items-center text-gray-600 text-sm mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -279,7 +283,7 @@
                         </div>
                     </div>
                 </div>
-
+                @endforeach
             </div>
 
             <!-- Pagination -->
@@ -309,7 +313,8 @@
         <!-- Add New Property Section -->
         <section id="publish-property" class="max-w-7xl mx-auto px-6 mb-12">
             <h2 class="text-2xl font-bold text-gray-800 mb-8">Add New Property</h2>
-        <form action="">
+        <form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="bg-white shadow-md rounded-xl p-6">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Left Column - Basic Information -->
@@ -318,13 +323,13 @@
 
                         <div class="space-y-4">
                             <div>
-                                <label for="property-name" class="block text-sm font-medium text-gray-700 mb-1">Property Name</label>
-                                <input type="text" id="property-name" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="property-name"  class="block text-sm font-medium text-gray-700 mb-1">Property Name</label>
+                                <input type="text" name="name" id="property-name" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div>
                                 <label for="property-type" class="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
-                                <select id="property-type" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <select id="property-type" name="type" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                     <option value="" selected disabled>Select property type</option>
                                     <option value="apartment">Apartment</option>
                                     <option value="house">House</option>
@@ -336,18 +341,18 @@
                             </div>
 
                             <div>
-                                <label for="bedrooms" class="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
-                                <input type="number" id="bedrooms" min="0" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="bedrooms"  class="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
+                                <input type="number" name="bedrooms" id="bedrooms" min="0" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div>
                                 <label for="bathrooms" class="block text-sm font-medium text-gray-700 mb-1">Bathrooms</label>
-                                <input type="number" id="bathrooms" min="0" step="0.5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="number" name="bathrooms" id="bathrooms" min="0" step="0.5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div>
                                 <label for="max-guests" class="block text-sm font-medium text-gray-700 mb-1">Max Guests</label>
-                                <input type="number" id="max-guests" min="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="number" name="max_guests" id="max-guests" min="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
                     </div>
@@ -359,18 +364,18 @@
                         <div class="space-y-4">
                             <div>
                                 <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                                <input type="text" id="address" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <input type="text" name="address" id="address" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                    <input type="text" id="city" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <input type="text" name="city" id="city" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <div>
                                     <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                                    <select id="country" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <select id="country" name="country" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         <option value="" selected disabled>Select country</option>
                                         <option value="france">Maroc</option>
                                         <option value="italy">Portugal</option>
@@ -385,7 +390,7 @@
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500">€</span>
                                     </div>
-                                    <input type="number" id="base-price" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <input type="number" name="base_price" id="base-price" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
                             </div>
 
@@ -396,7 +401,7 @@
                                         <span class="text-gray-500">€</span>
                                     </div>
 
-                                    <input type="number" id="cleaning-fee" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <input type="number" name="cleaning_fee" id="cleaning-fee" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 </div>
                             </div>
                         </div>
@@ -411,8 +416,8 @@
 
                             <div>
                                 <label for="photos" class="block text-sm font-medium text-gray-700 mb-1">Upload Photos</label>
-                                <input type="file" id="photos" multiple accept="image/*" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                <p class="text-xs text-gray-500 mt-1">Upload up to 10 photos (max 5MB each)</p>
+                                <input type="file" name="photos[]" id="photos" multiple accept="image/*" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                {{-- <p class="text-xs text-gray-500 mt-1">Upload up to 10 photos (max 5MB each)</p> --}}
                             </div>
                         </div>
                     </div>
@@ -421,7 +426,7 @@
                 <!-- Description Section -->
                 <div class="mt-8">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Property Description</h3>
-                    <textarea id="description" rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe your property..."></textarea>
+                    <textarea id="description" name="description" rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe your property..."></textarea>
                 </div>
 
                 <!-- Submit Button -->
