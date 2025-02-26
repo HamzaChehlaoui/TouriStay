@@ -19,8 +19,12 @@ use App\Http\Controllers\HomeController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/touris', function() {
-    return view('touris');
+Route::get('touris/index', function() {
+    return view('touris/index');
+});
+
+Route::get('proprietaire/index', function() {
+    return view('proprietaire/index');
 });
 
 Route::get('/dashboard', function () {
@@ -36,5 +40,3 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('admin/dashbord', [HomeController::class,'index']);
-
-
