@@ -20,12 +20,12 @@ use App\Http\Controllers\PropertyController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('touris/index', function() {
+Route::get('/touris', function() {
     return view('touris/index');
 });
 
-Route::get('proprietaire/index', function() {
-    return view('proprietaire/index');
+Route::get('/properties', function() {
+    return view('properties/index');
 });
 
 Route::get('/dashboard', function () {
@@ -42,4 +42,10 @@ require __DIR__.'/auth.php';
 
 Route::get('admin/dashbord', [HomeController::class,'index']);
 Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
+// Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
+// die('Routes file is loading');
+
+Route::delete('/properties/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
+Route::get('/properties/{id}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
+Route::put('/properties/{id}', [PropertyController::class, 'update'])->name('properties.update');

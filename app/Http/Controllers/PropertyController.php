@@ -8,13 +8,14 @@ use App\Models\Property;
 class PropertyController extends Controller
 {
     public function index(){
+        // die('Controller reached');
         $properties  = Property::all();
-    
-        return view('proprietaire.index', compact('properties'));
+        return view('properties.index', compact('properties'));
     }
     public function store(Request $request)
     {
         if (!auth()->check()) {
+
             return redirect()->route('login')->with('error', 'You must be logged in to add a property.');
         }
         $validatedData = $request->validate([
@@ -49,5 +50,38 @@ class PropertyController extends Controller
 
         return redirect()->back()->with('success', 'Property added successfully!');
     }
+    public function destroy($id)
+    {
+            $property = Property::find($id);
+            if ($property) {
+                $property->delete();
+                return redirect()->back()->with('success', 'The property has been successfully deleted.');
+            }
+            return redirect()->back()->with('error', 'The property is not available.');
+    }
+
+        public function edit($id)
+        {
+            $property = Property::findOrFail($id); // Find the property or show a 404 error
+            return view('properties.edit', compact('property'));
+        }
+
+        public function update(Request $request, $id)
+        {
+            $property = Property::findOrFail($id);
+
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'base_price' => 'required|numeric|min:0',
+                'city' => 'required|string|max:255',
+                'country' => 'required|string|max:255',
+                'bedrooms' => 'required|integer|min:0',
+                'bathrooms' => 'required|integer|min:0',
+            ]);
+
+            $property->update($request->all());
+
+            return redirect()->route('properties.index')->with('success', 'Property updated successfully.');
+        }
 
 }
