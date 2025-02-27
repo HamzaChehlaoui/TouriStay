@@ -405,8 +405,8 @@
                                     <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
                                     <select id="country" name="country" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                         <option value="" selected disabled>Select country</option>
-                                        <option value="france">Maroc</option>
-                                        <option value="italy">Portugal</option>
+                                        <option value="Maroc">Maroc</option>
+                                        <option value="Portugal">Portugal</option>
                                         <option value="spain">Espagne</option>
                                     </select>
                                 </div>

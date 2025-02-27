@@ -9,7 +9,7 @@
 <body>
 
 
-    <form action="{{ route('properties.update', $property->id) }}" method="POST">
+    <form action="{{ route('properties.update', $property->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -25,6 +25,15 @@
         <label class="block text-gray-700">Country</label>
         <input type="text" name="country" value="{{ $property->country }}" class="w-full border-gray-300 rounded-lg p-2 mb-3">
 
+        @if ($property->photos)
+            @foreach ($property->photos as $photo)
+                <img src="{{ asset('storage/' . $photo) }}" alt="Property Image" width="200">
+            @endforeach
+        @endif
+
+        <label for="photos">Upload New Images:</label>
+        <input type="file" name="photos[]" accept="image/*" multiple> <!-- Allow multiple images -->
+
         <label class="block text-gray-700">Bedrooms</label>
         <input type="number" name="bedrooms" value="{{ $property->bedrooms }}" class="w-full border-gray-300 rounded-lg p-2 mb-3">
 
@@ -35,6 +44,7 @@
             Save Changes
         </button>
     </form>
+
 
 </body>
 </html>

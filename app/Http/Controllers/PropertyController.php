@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Property;
+use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
@@ -67,21 +68,41 @@ class PropertyController extends Controller
         }
 
         public function update(Request $request, $id)
-        {
-            $property = Property::findOrFail($id);
+{
+    $property = Property::findOrFail($id);
 
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'base_price' => 'required|numeric|min:0',
-                'city' => 'required|string|max:255',
-                'country' => 'required|string|max:255',
-                'bedrooms' => 'required|integer|min:0',
-                'bathrooms' => 'required|integer|min:0',
-            ]);
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'base_price' => 'required|numeric|min:0',
+        'city' => 'required|string|max:255',
+        'country' => 'required|string|max:255',
+        'bedrooms' => 'required|integer|min:0',
+        'bathrooms' => 'required|integer|min:0',
+        'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120' // Validate image
+    ]);
 
-            $property->update($request->all());
-
-            return redirect()->route('properties.index')->with('success', 'Property updated successfully.');
+    // Handle file upload if a new file is provided
+    if ($request->hasFile('photos')) {
+        // Delete the old photo if it exists
+        if ($property->photos) {
+            foreach ($property->photos as $oldPhoto) {
+                Storage::disk('public')->delete($oldPhoto);
+            }
         }
+
+        // Store the new photo(s)
+        $photos = [];
+        foreach ($request->file('photos') as $photo) {
+            $photos[] = $photo->store('property_photos', 'public');
+        }
+        $property->photos = $photos;
+    }
+
+    // Update the rest of the property details
+    $property->update($request->except('photos'));
+
+    return redirect()->route('properties.index')->with('success', 'Property updated successfully.');
+}
+
 
 }
