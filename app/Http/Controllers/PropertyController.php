@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Storage;
 class PropertyController extends Controller
 {
     public function index(){
-        // die('Controller reached');
-        $properties  = Property::all();
+        $userId = auth()->id();
+        $properties  = Property::where('user_id', $userId)->get();
         return view('properties.index', compact('properties'));
     }
     public function store(Request $request)
@@ -104,5 +104,10 @@ class PropertyController extends Controller
     return redirect()->route('properties.index')->with('success', 'Property updated successfully.');
 }
 
+        public function touris()
+{
+    $properties = Property::all();
+    return view('touris.index', compact('properties'));
+}
 
 }

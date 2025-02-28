@@ -49,3 +49,4 @@ Route::get('/properties', [PropertyController::class, 'index'])->name('propertie
 Route::delete('/properties/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
 Route::get('/properties/{id}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
 Route::put('/properties/{id}', [PropertyController::class, 'update'])->name('properties.update');
+Route::get('/touris', [PropertyController::class, 'touris'])->name('touris.index');
