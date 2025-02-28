@@ -105,9 +105,20 @@ class PropertyController extends Controller
 }
 
         public function touris()
-{
+    {
     $properties = Property::all();
     return view('touris.index', compact('properties'));
-}
+    }
 
+    public function Pagination(Request $request)
+    {
+        // Get the number of listings per page from the request, default to 10
+        $perPage = $request->input('per_page', 10);
+
+        // Fetch paginated data
+        $properties = Property::paginate($perPage);
+
+        // Pass the paginated data to the view
+        return view('touris.index', compact('properties'));
+    }
 }

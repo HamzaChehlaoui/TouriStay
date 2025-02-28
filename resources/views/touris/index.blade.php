@@ -308,187 +308,172 @@
                 <h2 class="text-3xl font-bold mt-4">Discover Your Perfect Home</h2>
                 <p class="text-gray-600 mt-4">Browse our selection of premium properties chosen to match diverse preferences and budgets.</p>
             </div>
+            <h2 class="text-xl font-bold mb-4">Explore Hosting Offers</h2>
 
-            <div class="grid md:grid-cols-3 gap-8">
+            <div class="mb-4">
+                <form method="GET" action="{{ route('touris.index') }}">
+                    <label for="per_page">Listings per page:</label>
+                    <select name="per_page" id="per_page" onchange="this.form.submit()" class="border p-2 rounded">
+                        <option value="4" {{ request('per_page') == 4 ? 'selected' : '' }}>4</option>
+                        <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                        <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                    </select>
+                </form>
+            </div>
+            <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-4 md:gap-8">
                 @foreach($properties as $property)
-<div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition property-card">
-    <div class="relative">
-        <img src="{{ $property->photos ? asset('storage/' . $property->photos[0]) : '/api/placeholder/400/300' }}"
-             alt="{{ $property->name }}"
-             class="w-full h-64 object-cover">
-        <span class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-            {{ ucfirst($property->type) }}
-        </span>
-    </div>
-    <div class="p-6">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-semibold">{{ $property->name }}</h3>
-            <span class="text-blue-600 font-bold">${{ number_format($property->base_price, 2) }}</span>
-        </div>
-        <p class="text-gray-600 mb-4">{{ Str::limit($property->description, 80) }}</p>
-        <div class="flex items-center text-gray-500 mb-4">
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-            </svg>
-            <span>{{ $property->address }}, {{ $property->city }}, {{ $property->country }}</span>
-        </div>
-        <div class="flex justify-between border-t pt-4">
-            <div class="flex items-center">
-                <svg class="w-5 h-5 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"></path>
-                </svg>
-                <span>{{ $property->bedrooms }} Beds</span>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition property-card">
+                        <div class="relative">
+                            <img src="{{ $property->photos ? asset('storage/' . $property->photos[0]) : '/api/placeholder/400/300' }}"
+                                alt="{{ $property->name }}"
+                                class="w-full h-64 object-cover"
+                                loading="lazy">
+                            <span class="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                {{ ucfirst($property->type) }}
+                            </span>
+                            <!-- Favorite Button -->
+                            <button
+                                class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors favorite-btn"
+                                onclick="toggleFavorite(event, {{ $property->id }})"
+                                data-property-id="{{ $property->id }}"
+                                aria-label="{{ in_array($property->id, auth()->check() ? auth()->user()->favorites->pluck('id')->toArray() : []) ? 'Remove from favorites' : 'Add to favorites' }}">
+                                <svg class="w-6 h-6 favorite-icon {{ in_array($property->id, auth()->check() ? auth()->user()->favorites->pluck('id')->toArray() : []) ? 'text-red-500 fill-current' : 'text-gray-400' }} transition-colors duration-300"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                                <div class="loading-spinner hidden w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-xl font-semibold">{{ $property->name }}</h3>
+                                <span class="text-blue-600 font-bold">${{ number_format($property->base_price, 2) }}</span>
+                            </div>
+                            <p class="text-gray-600 mb-4">{{ Str::limit($property->description, 80) }}</p>
+                            <div class="flex items-center text-gray-500 mb-4">
+                                <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <span class="truncate">{{ $property->address }}, {{ $property->city }}, {{ $property->country }}</span>
+                            </div>
+                            <div class="flex justify-between border-t pt-4">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6"></path>
+                                    </svg>
+                                    <span>{{ $property->bedrooms }} Beds</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
+                                    </svg>
+                                    <span>{{ $property->bathrooms }} Baths</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
+                                    </svg>
+                                    <span>{{ $property->max_guests }} Guests</span>
+                                </div>
+                            </div>
+                            {{-- <div class="mt-4 pt-4 border-t">
+                                <a href="/properties/{{ $property->id }}" class="block w-full text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    View Details
+                                </a>
+                            </div> --}}
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="flex items-center">
-                <svg class="w-5 h-5 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
-                </svg>
-                <span>{{ $property->bathrooms }} Baths</span>
-            </div>
-            <div class="flex items-center">
-                <svg class="w-5 h-5 text-gray-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"></path>
-                </svg>
-                <span>{{ $property->max_guests }} Guests</span>
-            </div>
-        </div>
-    </div>
-</div>
-@endforeach
 
-            </div>
 
 
             <!-- Pagination -->
-            <div class="flex justify-center mt-8">
-                <nav class="inline-flex rounded-md shadow-sm" aria-label="Pagination">
-                    <a href="#" class="relative inline-flex items-center px-3 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                        <span class="sr-only">Previous</span>
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-blue-50 text-sm font-medium text-blue-600 hover:bg-blue-100">1</a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">3</a>
-                    <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
-                    <a href="#" class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">8</a>
-                    <a href="#" class="relative inline-flex items-center px-3 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                        <span class="sr-only">Next</span>
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-                        </svg>
-                    </a>
-                </nav>
-            </div>
-        </div>
-    </section>
+            <div class="container">
 
-    <!-- Testimonials -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-medium">Testimonials</span>
-                <h2 class="text-3xl font-bold mt-4">What Our Clients Say</h2>
-                <p class="text-gray-600 mt-4">Hear from our satisfied clients about their experience working with us.</p>
-            </div>
 
-            <div class="grid md:grid-cols-3">
-<!-- Testimonials Section (completion) -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400">
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic">"Working with DreamHouse was an absolute pleasure. Our agent was knowledgeable, responsive, and truly understood our needs. We found our dream home in record time!"</p>
-                    <div class="flex items-center">
-                        <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-semibold">Sarah Johnson</h4>
-                            <p class="text-gray-500 text-sm">Beverly Hills, CA</p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Select number of listings per page -->
 
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400">
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic">"We sold our property through DreamHouse and couldn't be happier with the results. Their marketing strategy and professional photography helped us get top dollar for our home."</p>
-                    <div class="flex items-center">
-                        <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-semibold">Michael Thompson</h4>
-                            <p class="text-gray-500 text-sm">Portland, OR</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="flex items-center mb-4">
-                        <div class="text-yellow-400">
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                            <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
-                            </svg>
-                        </div>
-                    </div>
-                    <p class="text-gray-600 mb-6 italic">"As first-time homebuyers, we had a lot of questions. Our DreamHouse agent took the time to explain everything and made the process stress-free. Highly recommend!"</p>
-                    <div class="flex items-center">
-                        <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
-                        <div>
-                            <h4 class="font-semibold">Jennifer & David Lee</h4>
-                            <p class="text-gray-500 text-sm">Chicago, IL</p>
-                        </div>
-                    </div>
+                <!-- Pagination -->
+                <div class="flex justify-center mt-8">
+                    {{ $properties->appends(['per_page' => request('per_page')])->links() }}
                 </div>
             </div>
         </div>
     </section>
+
+<!-- Testimonials -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="bg-blue-100 text-blue-600 px-4 py-1 rounded-full text-sm font-medium">Testimonials</span>
+            <h2 class="text-3xl font-bold mt-4">What Our Clients Say</h2>
+            <p class="text-gray-600 mt-4">Hear from our satisfied clients about their experience working with us.</p>
+        </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="bg-gray-50 p-8 rounded-xl">
+            <div class="flex items-center mb-4">
+                <div class="text-yellow-400">
+                    <!-- Star rating -->
+                    <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    <svg class="w-5 h-5 inline" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6 italic">"Working with DreamHouse was an absolute pleasure. Our agent was knowledgeable, responsive, and truly understood our needs. We found our dream home in record time!"</p>
+            <div class="flex items-center">
+                <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                    <h4 class="font-semibold">Sarah Johnson</h4>
+                    <p class="text-gray-500 text-sm">Beverly Hills, CA</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="bg-gray-50 p-8 rounded-xl">
+            <div class="flex items-center mb-4">
+                <div class="text-yellow-400">
+                    <!-- Star rating -->
+                    <!-- Repeat the star SVGs -->
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6 italic">"We sold our property through DreamHouse and couldn't be happier with the results. Their marketing strategy and professional photography helped us get top dollar for our home."</p>
+            <div class="flex items-center">
+                <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                    <h4 class="font-semibold">Michael Thompson</h4>
+                    <p class="text-gray-500 text-sm">Portland, OR</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="bg-gray-50 p-8 rounded-xl">
+            <div class="flex items-center mb-4">
+                <div class="text-yellow-400">
+                    <!-- Star rating -->
+                    <!-- Repeat the star SVGs -->
+                </div>
+            </div>
+            <p class="text-gray-600 mb-6 italic">"The team at DreamHouse made buying our first home an enjoyable experience. They guided us through every step, and we never felt pressured to make a decision. Highly recommend!"</p>
+            <div class="flex items-center">
+                <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                <div>
+                    <h4 class="font-semibold">Jessica Lee</h4>
+                    <p class="text-gray-500 text-sm">Seattle, WA</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 
     <!-- FAQ Section -->
     <section id="faq" class="py-20 bg-gray-50">
@@ -640,4 +625,5 @@
             }
         });
     });
+
 </script>
