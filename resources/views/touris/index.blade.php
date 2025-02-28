@@ -320,6 +320,7 @@
                     </select>
                 </form>
             </div>
+
             <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-4 md:gap-8">
                 @foreach($properties as $property)
                     <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition property-card">
@@ -332,17 +333,15 @@
                                 {{ ucfirst($property->type) }}
                             </span>
                             <!-- Favorite Button -->
-                            <button
-                                class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors favorite-btn"
-                                onclick="toggleFavorite(event, {{ $property->id }})"
-                                data-property-id="{{ $property->id }}"
-                                aria-label="{{ in_array($property->id, auth()->check() ? auth()->user()->favorites->pluck('id')->toArray() : []) ? 'Remove from favorites' : 'Add to favorites' }}">
-                                <svg class="w-6 h-6 favorite-icon {{ in_array($property->id, auth()->check() ? auth()->user()->favorites->pluck('id')->toArray() : []) ? 'text-red-500 fill-current' : 'text-gray-400' }} transition-colors duration-300"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
-                                <div class="loading-spinner hidden w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-                            </button>
+                <button
+                    class="absolute top-4 right-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors favorite-btn">
+                    <svg class="w-6 h-6 favorite-icon transition-colors duration-300"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                    </svg>
+                    <div class="loading-spinner hidden w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                </button>
+
                         </div>
                         <div class="p-6">
                             <div class="flex justify-between items-center mb-4">

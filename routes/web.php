@@ -5,7 +5,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
-
+use App\Http\Controllers\FavoriteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,3 +51,4 @@ Route::get('/properties/{id}/edit', [PropertyController::class, 'edit'])->name('
 Route::put('/properties/{id}', [PropertyController::class, 'update'])->name('properties.update');
 Route::get('/touris', [PropertyController::class, 'touris'])->name('touris.index');
 Route::get('/touris', [PropertyController::class, 'Pagination'])->name('touris.index');
+Route::post('/favorite/{propertyId}', [FavoriteController::class, 'toggleFavorite'])->middleware('auth');

@@ -19,4 +19,9 @@ class Property extends Model
 {
     return $this->belongsTo(User::class);
 }
+
+    public function usersWhoFavorited()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }
