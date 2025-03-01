@@ -103,8 +103,4 @@ class PropertyController extends Controller
     return redirect()->route('properties.index')->with('success', 'Property updated successfully.');
 }
 
-
-
-   
-
 }

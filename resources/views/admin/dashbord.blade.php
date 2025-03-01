@@ -164,8 +164,8 @@
                     <div class="bg-white rounded-lg shadow-md p-6 transition duration-300 hover:shadow-lg">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-sm font-medium text-gray-600">Total Listings</p>
-                                <p class="text-3xl font-bold text-gray-900">3,742</p>
+                                <p class="text-sm font-medium text-gray-600">number of registrations</p>
+                                <p class="text-3xl font-bold text-gray-900">{{$nomberUser}}</p>
                             </div>
                             <div class="p-3 rounded-full bg-blue-100 text-blue-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -189,7 +189,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Active Listings</p>
-                                <p class="text-3xl font-bold text-gray-900">2,845</p>
+                                <p class="text-3xl font-bold text-gray-900">{{$nomberActiveAds}}</p>
                             </div>
                             <div class="p-3 rounded-full bg-green-100 text-green-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -212,8 +212,8 @@
                     <div class="bg-white rounded-lg shadow-md p-6 transition duration-300 hover:shadow-lg">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-sm font-medium text-gray-600">Rentals This Month</p>
-                                <p class="text-3xl font-bold text-gray-900">548</p>
+                                <p class="text-sm font-medium text-gray-600">Nomber Location</p>
+                                <p class="text-3xl font-bold text-gray-900">{{$nomberLocations}}</p>
                             </div>
                             <div class="p-3 rounded-full bg-purple-100 text-purple-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -232,29 +232,7 @@
                         </div>
                     </div>
 
-                    <!-- Reported Listings Card -->
-                    <div class="bg-white rounded-lg shadow-md p-6 transition duration-300 hover:shadow-lg">
-                        <div class="flex items-center justify-between">
-                            <div>
-                                <p class="text-sm font-medium text-gray-600">Reported Listings</p>
-                                <p class="text-3xl font-bold text-gray-900">27</p>
-                            </div>
-                            <div class="p-3 rounded-full bg-red-100 text-red-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="mt-4 flex items-center">
-                            <span class="text-red-500 text-sm font-medium flex items-center mr-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
-                                </svg>
-                                5.3%
-                            </span>
-                            <span class="text-gray-500 text-sm">vs last month</span>
-                        </div>
-                    </div>
+
                 </div>
 
                 <!-- Chart Section -->

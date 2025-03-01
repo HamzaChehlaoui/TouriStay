@@ -43,7 +43,8 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('admin/dashbord', [HomeController::class,'index']);
+Route::get('/admin',[AdminController::class, 'index'])->name('admin.dashbord');
+// Route::get('admin/dashbord', [HomeController::class,'index']);
 Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 
@@ -55,4 +56,4 @@ Route::get('/touris', [TourisController::class, 'Pagination'])->name('touris.ind
 Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
 Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
-Route::get('/admin',[AdminController::class, 'index'])->name('admin.dashboard');
+// Route::get('/admin',[AdminController::class, 'statistique'])->name('admin.dashbord');
