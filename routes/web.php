@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\TourisController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,13 +45,14 @@ require __DIR__.'/auth.php';
 
 Route::get('admin/dashbord', [HomeController::class,'index']);
 Route::post('/properties', [PropertyController::class, 'store'])->name('properties.store');
-// Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
 Route::get('/properties', [PropertyController::class, 'index'])->name('properties.index');
-// die('Routes file is loading');
 
 Route::delete('/properties/{id}', [PropertyController::class, 'destroy'])->name('properties.destroy');
 Route::get('/properties/{id}/edit', [PropertyController::class, 'edit'])->name('properties.edit');
 Route::put('/properties/{id}', [PropertyController::class, 'update'])->name('properties.update');
-Route::get('/touris', [PropertyController::class, 'touris'])->name('touris.index');
-Route::get('/touris', [PropertyController::class, 'Pagination'])->name('touris.index');
-Route::post('/favorite/{propertyId}', [FavoriteController::class, 'toggleFavorite'])->middleware('auth');
+Route::get('/touris', [TourisController::class, 'index'])->name('touris.index');
+Route::get('/touris', [TourisController::class, 'Pagination'])->name('touris.index');
+Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
+Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+Route::get('/admin',[AdminController::class, 'index'])->name('admin.dashboard');

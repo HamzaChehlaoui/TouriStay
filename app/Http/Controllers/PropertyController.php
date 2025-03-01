@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Property;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Favorite;
 
 class PropertyController extends Controller
 {
@@ -63,7 +64,7 @@ class PropertyController extends Controller
 
         public function edit($id)
         {
-            $property = Property::findOrFail($id); // Find the property or show a 404 error
+            $property = Property::findOrFail($id);
             return view('properties.edit', compact('property'));
         }
 
@@ -78,10 +79,9 @@ class PropertyController extends Controller
         'country' => 'required|string|max:255',
         'bedrooms' => 'required|integer|min:0',
         'bathrooms' => 'required|integer|min:0',
-        'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120' // Validate image
+        'photos.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120'
     ]);
 
-    // Handle file upload if a new file is provided
     if ($request->hasFile('photos')) {
         // Delete the old photo if it exists
         if ($property->photos) {
@@ -98,27 +98,13 @@ class PropertyController extends Controller
         $property->photos = $photos;
     }
 
-    // Update the rest of the property details
     $property->update($request->except('photos'));
 
     return redirect()->route('properties.index')->with('success', 'Property updated successfully.');
 }
 
-        public function touris()
-    {
-    $properties = Property::all();
-    return view('touris.index', compact('properties'));
-    }
 
-    public function Pagination(Request $request)
-    {
-        // Get the number of listings per page from the request, default to 10
-        $perPage = $request->input('per_page', 10);
 
-        // Fetch paginated data
-        $properties = Property::paginate($perPage);
+   
 
-        // Pass the paginated data to the view
-        return view('touris.index', compact('properties'));
-    }
 }
