@@ -24,6 +24,8 @@ return new class extends Migration
             $table->decimal('base_price', 10, 2);
             $table->decimal('cleaning_fee', 10, 2)->nullable();
             $table->text('description')->nullable();
+            $table->date('available_from')->nullable();
+            $table->date('available_to')->nullable();
             $table->timestamps();
         });
     }

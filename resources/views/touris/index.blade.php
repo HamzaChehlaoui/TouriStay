@@ -48,39 +48,39 @@
 
             <!-- Main Navigation - Desktop -->
             <div class="hidden lg:flex items-center space-x-1">
-                <a href="#home" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
+                <a href="/touris#home" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7m-14 0v9a1 1 0 001 1h4a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h4a1 1 0 001-1v-9m-14 0l2-2m4-4l2-2"/>
                     </svg>
                     Home
                     <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transform -translate-x-1/2 transition-all duration-300 group-hover:w-2/3"></span>
                 </a>
-                <a href="#services" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
+                <a href="/touris#services" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A11.97 11.97 0 0112 21c-6.627 0-12-5.373-12-12 0-3.711 1.686-7.036 4.33-9.246a1 1 0 011.335.086L10 5.333A1 1 0 0110 7l-1.172 1.172a7 7 0 008.485 8.485L19 15.172a1 1 0 001.667-.334l.833-2.5a1 1 0 00-.083-.667A11.971 11.971 0 0121 13.255z"/>
                     </svg>
                     Services
                     <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transform -translate-x-1/2 transition-all duration-300 group-hover:w-2/3"></span>
                 </a>
-                <a href="#properties" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
+                <a href="/touris#properties" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3a1 1 0 01-1 1H3a1 1 0 01-1-1v-3a1 1 0 01.4-.8l3-2.3a1 1 0 011.2 0l3 2.3a1 1 0 01.4.8zm13-3v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3a1 1 0 01.4-.8l3-2.3a1 1 0 011.2 0l3 2.3a1 1 0 01.4.8z"/>
                     </svg>
                     Properties
                     <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transform -translate-x-1/2 transition-all duration-300 group-hover:w-2/3"></span>
                 </a>
-                <a href="#faq" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
+                <a href="/touris#faq" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     FAQ
                     <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transform -translate-x-1/2 transition-all duration-300 group-hover:w-2/3"></span>
                 </a>
-                <a href="#contact" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <a href="/favorites" class="text-gray-700 hover:text-blue-600 px-4 py-2 rounded-full hover:bg-blue-50 transition duration-300 font-medium flex items-center relative group">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
                     </svg>
-                    Contact
+                    Favorites
                     <span class="absolute bottom-0 left-1/2 w-0 h-0.5 bg-blue-600 transform -translate-x-1/2 transition-all duration-300 group-hover:w-2/3"></span>
                 </a>
             </div>
@@ -89,22 +89,16 @@
             <div class="flex items-center space-x-4">
                 <!-- Enhanced Search Box with Dropdown -->
                 <div class="relative group">
-                    <input type="text" placeholder="Search properties..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64 transition-all duration-300 group-hover:shadow-md">
-                    <div class="absolute left-3 top-2.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 group-hover:text-blue-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                        </svg>
-                    </div>
-                    <!-- Search Quick Categories -->
-                    <div class="absolute mt-1 w-full bg-white rounded-md shadow-lg hidden group-focus-within:block z-20 border border-gray-100">
-                        <div class="p-2 text-xs text-gray-500">Quick Filters:</div>
-                        <div class="flex flex-wrap p-2 gap-1">
-                            <span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs cursor-pointer hover:bg-blue-100">Beach Properties</span>
-                            <span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs cursor-pointer hover:bg-blue-100">Mountain View</span>
-                            <span class="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs cursor-pointer hover:bg-blue-100">Family Friendly</span>
+                    <form action="{{ route('search') }}" method="GET" class="relative group">
+                        <input type="text" name="query" placeholder="Search properties..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64 transition-all duration-300 group-hover:shadow-md">
+                        <div class="absolute left-3 top-2.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500 group-hover:text-blue-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
                         </div>
-                    </div>
+                    </form>
                 </div>
+
 
                 <div class="relative">
                     <button id="dropdown-button" class="flex items-center space-x-1 bg-white border border-gray-300 hover:border-blue-500 px-3 py-1.5 rounded-full transition duration-300 focus:outline-none">
@@ -186,8 +180,6 @@
                     <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium mb-6 inline-block">Discover Your Dream Home</span>
                     <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white leading-tight">Find The Perfect Place <br>To Call Home</h1>
                     <p class="text-xl mb-8 text-gray-100 max-w-2xl">We connect you with premium properties tailored to your lifestyle and preferences, ensuring a seamless journey to your dream home.</p>
-
-
                 </div>
             </div>
         </div>
@@ -435,7 +427,7 @@
             </div>
             <p class="text-gray-600 mb-6 italic">"Working with DreamHouse was an absolute pleasure. Our agent was knowledgeable, responsive, and truly understood our needs. We found our dream home in record time!"</p>
             <div class="flex items-center">
-                <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToE9t43UR3fZHxjv7w6lgnrOotiXW2jiH64Q&s" alt="Client" class="w-12 h-12 rounded-full mr-4">
                 <div>
                     <h4 class="font-semibold">Sarah Johnson</h4>
                     <p class="text-gray-500 text-sm">Beverly Hills, CA</p>
@@ -453,7 +445,7 @@
             </div>
             <p class="text-gray-600 mb-6 italic">"We sold our property through DreamHouse and couldn't be happier with the results. Their marketing strategy and professional photography helped us get top dollar for our home."</p>
             <div class="flex items-center">
-                <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY-cfoVMQXacYmblitNhp9UALKEUtI761OoA&s" alt="Client" class="w-12 h-12 rounded-full mr-4">
                 <div>
                     <h4 class="font-semibold">Michael Thompson</h4>
                     <p class="text-gray-500 text-sm">Portland, OR</p>
@@ -471,7 +463,7 @@
             </div>
             <p class="text-gray-600 mb-6 italic">"The team at DreamHouse made buying our first home an enjoyable experience. They guided us through every step, and we never felt pressured to make a decision. Highly recommend!"</p>
             <div class="flex items-center">
-                <img src="/api/placeholder/48/48" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                <img src="https://pbs.twimg.com/profile_images/1460092437137874946/bP_zRcMF_400x400.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
                 <div>
                     <h4 class="font-semibold">Jessica Lee</h4>
                     <p class="text-gray-500 text-sm">Seattle, WA</p>
@@ -607,7 +599,7 @@
                     </div>
 
 
-                    
+
                 </div>
 
                 <div>

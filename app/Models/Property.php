@@ -10,7 +10,7 @@ class Property extends Model
     use HasFactory;
     protected $fillable = [
         'name', 'type', 'bedrooms', 'bathrooms', 'max_guests',
-        'address', 'city', 'country', 'base_price', 'cleaning_fee', 'description','photos','user_id'
+        'address', 'city', 'country', 'base_price', 'cleaning_fee', 'description','photos','user_id','status','available_from','available_to'
     ];
     protected $casts = [
         'photos' => 'array',

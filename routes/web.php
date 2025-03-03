@@ -21,7 +21,7 @@ use App\Http\Controllers\TourisController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 Route::get('/touris', function() {
     return view('touris/index');
@@ -56,4 +56,4 @@ Route::get('/touris', [TourisController::class, 'Pagination'])->name('touris.ind
 Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites.store');
 Route::delete('/favorites/{id}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
-// Route::get('/admin',[AdminController::class, 'statistique'])->name('admin.dashbord');
+Route::get('/search', [TourisController::class, 'search'])->name('search');

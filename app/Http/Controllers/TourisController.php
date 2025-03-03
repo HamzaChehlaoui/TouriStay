@@ -22,5 +22,26 @@ class TourisController extends Controller
 
         return view('touris.index', compact('properties'));
     }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        if (!$query) {
+            return redirect()->route('touris.index')->with('error', 'Veuillez entrer un terme de recherche.');
+        }
+
+        $properties = Property::where('name', 'LIKE', "%{$query}%")
+            ->orWhere('city', 'LIKE', "%{$query}%")
+            ->orWhere('available_from', 'LIKE', "%{$query}%")
+            ->orWhere('available_to', 'LIKE', "%{$query}%")
+            ->paginate(4);
+
+        $properties->appends(['query' => $query]);
+
+        return view('/touris.index', compact('properties'));
+
+    }
+
+
 }
 

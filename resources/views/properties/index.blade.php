@@ -338,145 +338,169 @@
             </div>
         </section>
 
-        <!-- Add New Property Section -->
-        <section id="publish-property" class="max-w-7xl mx-auto px-6 mb-12">
-            <h2 class="text-2xl font-bold text-gray-800 mb-8">Add New Property</h2>
-        <form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="bg-white shadow-md rounded-xl p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <!-- Left Column - Basic Information -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Basic Information</h3>
 
-                        <div class="space-y-4">
-                            <div>
-                                <label for="property-name"  class="block text-sm font-medium text-gray-700 mb-1">Property Name</label>
-                                <input type="text" name="name" id="property-name" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
+       <!-- Add New Property Section -->
+<section id="publish-property" class="max-w-7xl mx-auto px-6 mb-12">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8">Add New Property</h2>
+    <form action="{{ route('properties.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="bg-white shadow-md rounded-xl p-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Left Column - Basic Information -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Basic Information</h3>
 
+                    <div class="space-y-4">
+                        <div>
+                            <label for="property-name"  class="block text-sm font-medium text-gray-700 mb-1">Property Name</label>
+                            <input type="text" name="name" id="property-name" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="property-type" class="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
+                            <select id="property-type" name="type" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="" selected disabled>Select property type</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="house">House</option>
+                                <option value="villa">Villa</option>
+                                <option value="cottage">Cottage</option>
+                                <option value="cabin">Cabin</option>
+                                <option value="chalet">Chalet</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="bedrooms"  class="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
+                            <input type="number" name="bedrooms" id="bedrooms" min="0" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="bathrooms" class="block text-sm font-medium text-gray-700 mb-1">Bathrooms</label>
+                            <input type="number" name="bathrooms" id="bathrooms" min="0" step="0.5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div>
+                            <label for="max-guests" class="block text-sm font-medium text-gray-700 mb-1">Max Guests</label>
+                            <input type="number" name="max_guests" id="max-guests" min="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Middle Column - Location & Pricing -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Location & Pricing</h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                            <input type="text" name="address" id="address" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label for="property-type" class="block text-sm font-medium text-gray-700 mb-1">Property Type</label>
-                                <select id="property-type" name="type" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="" selected disabled>Select property type</option>
-                                    <option value="apartment">Apartment</option>
-                                    <option value="house">House</option>
-                                    <option value="villa">Villa</option>
-                                    <option value="cottage">Cottage</option>
-                                    <option value="cabin">Cabin</option>
-                                    <option value="chalet">Chalet</option>
+                                <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                <select id="country" name="country" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="" selected disabled>Select country</option>
+                                    <option value="Morocco">Morocco</option>
+                                    <option value="Portugal">Portugal</option>
+                                    <option value="Spain">Spain</option>
                                 </select>
                             </div>
 
                             <div>
-                                <label for="bedrooms"  class="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
-                                <input type="number" name="bedrooms" id="bedrooms" min="0" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-
-                            <div>
-                                <label for="bathrooms" class="block text-sm font-medium text-gray-700 mb-1">Bathrooms</label>
-                                <input type="number" name="bathrooms" id="bathrooms" min="0" step="0.5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-
-                            <div>
-                                <label for="max-guests" class="block text-sm font-medium text-gray-700 mb-1">Max Guests</label>
-                                <input type="number" name="max_guests" id="max-guests" min="1" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <select id="city" name="city" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="" selected disabled>Select city</option>
+                                </select>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Middle Column - Location & Pricing -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Location & Pricing</h3>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                                <input type="text" name="address" id="address" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label for="city" class="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                    <input type="text" name="city" id="city" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div>
+                            <label for="base-price" class="block text-sm font-medium text-gray-700 mb-1">Base Price (per night)</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">€</span>
                                 </div>
-
-                                <div>
-                                    <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Country</label>
-                                    <select id="country" name="country" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        <option value="" selected disabled>Select country</option>
-                                        <option value="Maroc">Maroc</option>
-                                        <option value="Portugal">Portugal</option>
-                                        <option value="spain">Espagne</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="base-price" class="block text-sm font-medium text-gray-700 mb-1">Base Price (per night)</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500">€</span>
-                                    </div>
-                                    <input type="number" name="base_price" id="base-price" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label for="cleaning-fee" class="block text-sm font-medium text-gray-700 mb-1">Cleaning Fee</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <span class="text-gray-500">€</span>
-                                    </div>
-
-                                    <input type="number" name="cleaning_fee" id="cleaning-fee" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                </div>
+                                <input type="number" name="base_price" id="base-price" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Right Column - Amenities & Photos -->
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Amenities & Photos</h3>
+                        <div>
+                            <label for="cleaning-fee" class="block text-sm font-medium text-gray-700 mb-1">Cleaning Fee</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500">€</span>
+                                </div>
 
-                        <div class="space-y-4">
-
-
-                            <div>
-                                <label for="photos" class="block text-sm font-medium text-gray-700 mb-1">Upload Photos</label>
-                                <input type="file" name="photos[]" id="photos" multiple accept="image/*" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                {{-- <p class="text-xs text-gray-500 mt-1">Upload up to 10 photos (max 5MB each)</p> --}}
+                                <input type="number" name="cleaning_fee" id="cleaning-fee" min="0" step="1" class="w-full border border-gray-300 rounded-lg pl-8 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Description Section -->
-                <div class="mt-8">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Property Description</h3>
-                    <textarea id="description" name="description" rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe your property..."></textarea>
-                </div>
+                <!-- Right Column - Amenities & Photos -->
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Amenities & Photos</h3>
 
-                <!-- Submit Button -->
-                <div class="mt-8 flex justify-end">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-full transition duration-300 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Publish Property
-                    </button>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="photos" class="block text-sm font-medium text-gray-700 mb-1">Upload Photos</label>
+                            <input type="file" name="photos[]" id="photos" multiple accept="image/*" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
                 </div>
             </div>
-        </form>
-        </section>
+
+            <!-- Description Section -->
+            <div class="mt-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Property Description</h3>
+                <textarea id="description" name="description" rows="5" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Describe your property..."></textarea>
+            </div>
+
+            <!-- Additional Inputs: Available Dates & Status -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Availability -->
+                <div>
+                    <label for="available_from" class="block text-sm font-medium text-gray-700 mb-1">Available From</label>
+                    <input type="date" name="available_from" id="available_from" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div>
+                    <label for="available_to" class="block text-sm font-medium text-gray-700 mb-1">Available To</label>
+                    <input type="date" name="available_to" id="available_to" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <!-- Status -->
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                    <select id="status" name="status" class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-8 flex justify-end">
+                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-full transition duration-300 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Publish Property
+                </button>
+            </div>
+        </div>
+    </form>
+</section>
+
 
         <!-- Footer (Optional) -->
+    </div>
         <footer class="bg-white py-6 border-t border-gray-200">
             <div class="max-w-7xl mx-auto px-6 text-center text-gray-600">
                 <p>&copy; 2025 TouriStay2030. All rights reserved.</p>
             </div>
         </footer>
-    </div>
 
     <!-- JavaScript for Dropdown and Mobile Menu -->
     <script>
@@ -500,6 +524,35 @@
         mobileMenuButton.addEventListener('click', () => {
             alert('Mobile menu functionality can be expanded here!');
         });
+    const countrySelect = document.getElementById('country');
+    const citySelect = document.getElementById('city');
+
+    const cities = {
+        Morocco: [
+            'Rabat', 'Casablanca', 'Tangier', 'Agadir', 'Marrakesh', 'Fes'
+        ],
+        Portugal: [
+            'Lisbon', 'Porto'
+        ],
+        Spain: [
+            'Madrid', 'Barcelona', 'Seville', 'Valencia', 'Zaragoza', 'Bilbao', 'Malaga', 'Cádiz', 'Tenerife', 'Vigo', 'Las Palmas'
+        ]
+    };
+
+    countrySelect.addEventListener('change', function () {
+        const selectedCountry = this.value;
+        citySelect.innerHTML = '<option value="" selected disabled>Select city</option>'; // Reset cities
+
+        if (selectedCountry) {
+            const selectedCities = cities[selectedCountry];
+            selectedCities.forEach(function (city) {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
+    });
     </script>
 </body>
 </html>
