@@ -541,7 +541,7 @@
 
     countrySelect.addEventListener('change', function () {
         const selectedCountry = this.value;
-        citySelect.innerHTML = '<option value="" selected disabled>Select city</option>'; // Reset cities
+        citySelect.innerHTML = '<option value="" selected disabled>Select city</option>';
 
         if (selectedCountry) {
             const selectedCities = cities[selectedCountry];
